@@ -1,0 +1,40 @@
+---
+title: Module 2: Chi-Square Testing and ANOVA
+author: "Justin Ehringhaus"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: 
+  github_document:
+    toc: true
+    toc_depth: 5
+bibliography: "references.bib"
+nocite: '@*'
+---
+
+```{r setup, include=FALSE}
+# repo: https://github.com/ehringhaus/regression-diagnostics
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+
+```{r}
+# █▀█ █▀▀ █▀ █▀▀ ▀█▀ █▀
+# █▀▄ ██▄ ▄█ ██▄ ░█░ ▄█
+# clear console
+cat("\014")
+# clear global environment
+rm(list = ls())
+# clear plots
+try(dev.off(dev.list()["RStudioGD"]), silent = TRUE)
+# clear packages
+try(p_unload(p_loaded(), character.only = TRUE), silent = TRUE)
+# disables scientific notion for entire R session
+options(scipen = 100)
+```
+
+```{r}
+# █▀█ ▄▀█ █▀▀ █▄▀ ▄▀█ █▀▀ █▀▀ █▀
+# █▀▀ █▀█ █▄▄ █░█ █▀█ █▄█ ██▄ ▄█
+library(pacman)
+p_load(tidyverse)     # the usual suite of packages
+```
