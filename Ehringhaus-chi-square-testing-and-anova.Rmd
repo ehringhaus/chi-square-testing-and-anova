@@ -1,0 +1,204 @@
+---
+title: Module 2 - Chi-Square Testing and ANOVA
+author: "Justin Ehringhaus"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output: 
+  github_document:
+    toc: true
+    toc_depth: 5
+bibliography: "references.bib"
+nocite: '@*'
+---
+
+```{r setup, include=FALSE}
+# repo: https://github.com/ehringhaus/regression-diagnostics
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+
+```{r}
+# █▀█ █▀▀ █▀ █▀▀ ▀█▀ █▀
+# █▀▄ ██▄ ▄█ ██▄ ░█░ ▄█
+# clear console
+cat("\014")
+# clear global environment
+rm(list = ls())
+# clear plots
+try(dev.off(dev.list()["RStudioGD"]), silent = TRUE)
+# clear packages
+try(p_unload(p_loaded(), character.only = TRUE), silent = TRUE)
+# disables scientific notion for entire R session
+options(scipen = 100)
+```
+
+```{r}
+# █▀█ ▄▀█ █▀▀ █▄▀ ▄▀█ █▀▀ █▀▀ █▀
+# █▀▀ █▀█ █▄▄ █░█ █▀█ █▄█ ██▄ ▄█
+library(pacman)
+p_load(tidyverse)     # the usual suite of packages
+```
+
+---
+
+## Introduction
+
+## Textbook Problems
+
+### Section 11-1
+
+#### 6. Blood Types
+>
+A medical researcher wishes to see if hospital patients in a large hospital have the same blood type distribution as those in the general population. The distribution for the general population is as follows: type A, 20%; type B, 28%; type O, 36%; and type AB = 16%. He selects a random sample of 50 patients and finds the following: 12 have type A blood, 8 have type B, 24 have type O, and 6 have type AB blood. 
+>
+At α = 0.10, can it be concluded that the distribution is the same as that of the general population?
+
+1. State the hypotheses and identify the claim.
+2. Find the critical value.
+3. Compute the test value.
+4. Make the decision.
+5. Summarize the results.
+
+#### 11. On-Time Performance by Airline
+>
+According to the Bureau of Transportation Statistics, on-time performance by the airlines is described as follows:
+
+| Action | % of Time |
+|--------|-----------|
+| On time | 70.8 |
+| National Aviation System delay | 8.2 |
+| Aircraft arriving late | 9.0 |
+| Other (because of weather and other conditions) | 12.0 |
+
+>
+Records of 200 randomly selected flights for a major airline company showed that 125 planes were on time; 40 were delayed because of weather, 10 because of a National Aviation System delay, and the rest because of arriving late. At α = 0.05, do these results differ from the government’s statistics?
+
+1. State the hypotheses and identify the claim.
+2. Find the critical value.
+3. Compute the test value.
+4. Make the decision.
+5. Summarize the results.
+
+### Section 11-2
+
+#### 8. Ethnicity and Movie Admissions
+>
+Are movie admissions related to ethnicity? A 2014 study indicated the following numbers of admissions (in thousands) for two different years. At the 0.05 level of significance, can it be concluded that movie attendance by year was dependent upon ethnicity?
+
+|    | Caucasian | Hispanic | African American | Other |
+|----|-----------|----------|------------------|-------|
+2013 | 724       | 335      | 174              | 107   |
+2014 | 370       | 292      | 152              | 140   |
+
+1. State the hypotheses and identify the claim.
+2. Find the critical value.
+3. Compute the test value.
+4. Make the decision.
+5. Summarize the results.
+
+#### 10. Women in the Military
+>
+This table lists the numbers of officers and enlisted personnel for women in the military. At α = 0.05, is there sufficient evidence to conclude that a relationship exists between rank and branch of the Armed Forces?
+
+| Action | Officers | Enlisted |
+|--------|----------|----------|
+| Army   | 10,791   | 62,491   |
+| Navy   |7,816     |42,750    |
+| Marine Corps|932  |9,525     |
+| Air Force|11,819  |54,344    |
+
+1. State the hypotheses and identify the claim.
+2. Find the critical value.
+3. Compute the test value.
+4. Make the decision.
+5. Summarize the results.
+
+### Section 12-1
+
+#### 8. Sodium Contents of Foods
+>
+The amount of sodium (in milligrams) in one serving for a random sample of three different kinds of foods is listed. At the 0.05 level of significance, is there sufficient evidence to conclude that a difference in mean sodium amounts exists among condiments, cereals, and desserts?
+
+|Condiments|Cereals|Desserts|
+|----------|-------|--------|
+|270       |260    |100     |
+|130       |220    |180     | 
+|230       |290    |250     |
+|180       |290    |250     |
+|80        |200    |300     |
+|70        |320    |360     |
+|200       |140    |300     |
+|          |       |160     |
+
+1. State the hypotheses and identify the claim.
+2. Find the critical value.
+3. Compute the test value.
+4. Make the decision.
+5. Summarize the results.
+
+### Section 12-2
+
+#### 10. Sales for Leading Companies
+>
+The sales in millions of dollars for a year of a sample of leading companies are shown. At α = 0.01, is there a significant difference in the means?
+
+|Cereal|Chocolate Candy|Coffee|
+|------|---------------|------|
+|578   |311            |261   |
+|320   |106            |185   |
+|264   |109            |302   |
+|249   |125            |689   |
+|237   |173            |      |
+
+1. State the hypotheses and identify the claim.
+2. Find the critical value.
+3. Compute the test value.
+4. Make the decision.
+5. Summarize the results.
+
+#### 12. Per-Pupil Expenditures
+>
+The expenditures (in dollars) per pupil for states in three sections of the country are listed. Using α = 0.05, can you conclude that there is a difference in means?
+
+|Eastern third|Middle third|Western third|
+|-------------|------------|-------------|
+|4946         |6149        |5282         |
+|5953         |7451        |8605         |
+|6202         |6000        |6528         |
+|7243         |6479        |6911         |
+|6113         |            |             |
+
+1. State the hypotheses and identify the claim.
+2. Find the critical value.
+3. Compute the test value.
+4. Make the decision.
+5. Summarize the results.
+
+### Section 12-3
+
+#### 10. Increasing Plant Growth
+>
+A gardening company is testing new ways to improve plant growth. Twelve plants are randomly selected and exposed to a combination of two factors, a “Grow-light” in two different strengths and a plant food supplement with different mineral supplements. After a number of days, the plants are measured for growth, and the results (in inches) are put into the appropriate boxes.
+
+|             |Grow-light 1   |Grow-light 2 |
+|-------------|---------------|-------------|
+|Plant food A |9.2, 9.4, 8.9  |8.5, 9.2, 8.9|
+|Plant food B |7.1, 7.2, 8.5  |5.5, 5.8, 7.6|
+
+>
+Can an interaction between the two factors be concluded? Is there a difference in mean growth with respect to light? With respect to plant food? Use α = 0.05.
+
+1. State the hypotheses and identify the claim.
+2. Find the critical value.
+3. Compute the test value.
+4. Make the decision.
+5. Summarize the results. *(Draw a graph of the cell means if necessary.)*
+
+## Baseball Dataset - "On Your Own"
+
+### EDA
+
+### Chi-Square Goodness-of-Fit Test
+
+## References
+
